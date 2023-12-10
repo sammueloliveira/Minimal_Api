@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Minimal_Api",
         Version = "v1",
-        Description = "Descrição da API",
+        Description = "Descriï¿½ï¿½o da API",
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -132,7 +132,7 @@ void MapActions(WebApplication app)
    .WithName("RegistroUsuario")
    .WithTags("Usuario");
 
-    app.MapPost("/Login", [AllowAnonymous] async (SignInManager<IdentityUser> signInManager,
+    app.MapPost("/login", [AllowAnonymous] async (SignInManager<IdentityUser> signInManager,
         UserManager<IdentityUser> userManager,
         IOptions<AppJwtSettings> appJwtSettings, LoginUser loginUser) =>
     {
@@ -169,12 +169,12 @@ void MapActions(WebApplication app)
 
 
 
-    app.MapGet("/Fornecedor", [Authorize] async (Contexto contexto) =>
+    app.MapGet("/fornecedor", [Authorize] async (Contexto contexto) =>
         await contexto.Fornecedores.ToListAsync())
         .WithName("GetFornecedor")
         .WithTags("Fornecedor");
 
-    app.MapGet("/Fornecedor{id}", [Authorize] async (Guid id, Contexto contexto) =>
+    app.MapGet("/fornecedor/{id}", [Authorize] async (Guid id, Contexto contexto) =>
         await contexto.Fornecedores.FindAsync(id)
         is Fornecedor fornecedor ? Results.Ok(fornecedor)
         : Results.NotFound())
@@ -183,7 +183,7 @@ void MapActions(WebApplication app)
         .WithName("GetFornecedorPorId")
         .WithTags("Fornecedor");
 
-    app.MapPost("/Fornecedor", [Authorize] async (Contexto contexto,
+    app.MapPost("/fornecedor", [Authorize] async (Contexto contexto,
         Fornecedor fornecedor) =>
         {
         if (!MiniValidator.TryValidate(fornecedor, out var errors))
@@ -203,7 +203,7 @@ void MapActions(WebApplication app)
         .WithName("PostFornecedor")
         .WithTags("Fornecedor");
 
-    app.MapPut("/Fornecedor/{id}", [Authorize] async (Guid id,
+    app.MapPut("/fornecedor/{id}", [Authorize] async (Guid id,
         Contexto contexto, Fornecedor fornecedor) =>
         {
         var forncedorBanco = await contexto.Fornecedores.AsNoTracking<Fornecedor>()
@@ -227,7 +227,7 @@ void MapActions(WebApplication app)
         .WithName("PutFornecedor")
         .WithTags("Fornecedor");
 
-    app.MapDelete("/Fornecedor/{id}", [Authorize] async (Guid id,
+    app.MapDelete("/fornecedor/{id}", [Authorize] async (Guid id,
         Contexto contexto) =>
         {
         var fornecedor = await contexto.Fornecedores.FindAsync(id);
